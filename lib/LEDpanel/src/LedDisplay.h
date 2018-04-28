@@ -2,18 +2,18 @@
 #define LEDDISPLAY_H_
 
 #include <Arduino.h>
-#include "Screen.h"
+#include "LEDScreen.h"
 
-class LedDisplay {
+class LEDDisplay {
 public:
-  LedDisplay(char dataPin, char clockPin, char latchPin);
-  void setScreen(Screen * screen);
+  LEDDisplay(char dataPin, char clockPin, char latchPin);
+  void setScreen(LEDScreen * screen);
   void update();
 private:
 	char _dataPin;
 	char _clockPin;
 	char _latchPin;
-	Screen * _screen;
+	LEDScreen * _screen;
 };
 
 #endif

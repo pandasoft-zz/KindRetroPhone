@@ -4,7 +4,7 @@
 //#include <TestEngine.h>
 #include <ToneEngine.h>
 #include <ProgmemRTTTSong.h>
-#include <LedDisplay.h>
+#include <LEDDisplay.h>
 #include "keycodes.h"
 #include "music.h"
 
@@ -34,17 +34,12 @@ const char phoneKeyboard[rowCount][colCount] = {
 
 Keypad phoneKeypad = Keypad(makeKeymap(phoneKeyboard), rowPins, colsPins, rowCount, colCount);
 
-Screen *screen = new Screen(3);
+LEDScreen *screen = new LEDScreen(3);
 
-LedDisplay ledDisplay = LedDisplay(dataPin, clockPin, latchPin);
+LEDDisplay ledDisplay = LEDDisplay(dataPin, clockPin, latchPin);
 
 IToneEngine *engine = new ToneEngine(mainSpeakerPin);
 Rtttl sound = Rtttl(engine);
-
-byte normalize(char in)
-{
-    return round((255.0) * ((in) / (32.0)));
-}
 
 // Taking care of some special events.
 void keypadCheck()
@@ -55,7 +50,6 @@ void keypadCheck()
         {
             if (phoneKeypad.key[i].stateChanged) // Only find keys that have changed state.
             {
-				screen->setLed(true, 1, 1);
                 byte pos = 0;
                 switch (phoneKeypad.key[i].kstate)
                 { // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
@@ -74,8 +68,37 @@ void keypadCheck()
                         case KEY_7:
                         case KEY_8:
                             pos = phoneKeypad.key[i].kchar - KEY_1;
-							screen->setLed(true, pos, 2);
+							screen->toggleLed(pos, 0 );
                             break;
+						case KEY_9:
+							screen->toggleRow(0);
+                            break;
+						case KEY_0:
+							screen->clearRow(0);
+							break;
+						case KEY_HASH:
+							screen->copyRow(1, 2);
+							screen->copyRow(0, 1);
+							screen->clearRow(0);
+							break;
+						case KEY_STAR:
+							screen->toggle();
+							break;
+						case KEY_UP:
+							screen->shiftTop();
+							break;
+						case KEY_DOWN:
+							screen->shiftBottom();
+							break;
+						case KEY_MENU:
+							screen->shiftLeft();
+							break;
+						case KEY_LIST:
+							screen->shiftRight();
+							break;
+						case KEY_DEL:
+							screen->clear();
+							break;
                         case KEY_M1:
                         case KEY_M2:
                         case KEY_M3:
@@ -107,6 +130,7 @@ void setup()
 {
     Serial.begin(9600);
 
+	screen->clear();
 	ledDisplay.setScreen(screen);
 }
 
