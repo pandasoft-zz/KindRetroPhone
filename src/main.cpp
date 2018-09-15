@@ -8,7 +8,6 @@
 #include "keycodes.h"
 #include "music.h"
 
-
 byte rowPins[] = {A1, A2, A3, A4};
 const int rowCount = 4;
 
@@ -27,10 +26,23 @@ const byte mainSpeakerPin = 5;
 byte album = 0;
 
 const char phoneKeyboard[rowCount][colCount] = {
-    {KEY_STAR, KEY_0, KEY_HASH, KEY_ALOUD, KEY_OPTION, KEY_NONE, KEY_M1, KEY_M5, KEY_NONE},
-    {KEY_7, KEY_8, KEY_9, KEY_BACK, KEY_DEL, KEY_SEARCH, KEY_M2, KEY_M6, KEY_NONE},
-    {KEY_4, KEY_5, KEY_6, KEY_LIST, KEY_UP, KEY_MENU, KEY_M3, KEY_N1, KEY_NONE},
-    {KEY_1, KEY_2, KEY_3, KEY_REPETE, KEY_DOWN, KEY_MUTE, KEY_M4, KEY_N2, KEY_VOLUME}};
+	{KEY_STAR, KEY_0, KEY_HASH, KEY_ALOUD, KEY_OPTION, KEY_NONE, KEY_M1, KEY_M5, KEY_NONE},
+	{KEY_7, KEY_8, KEY_9, KEY_BACK, KEY_DEL, KEY_SEARCH, KEY_M2, KEY_M6, KEY_NONE},
+	{KEY_4, KEY_5, KEY_6, KEY_LIST, KEY_UP, KEY_MENU, KEY_M3, KEY_N1, KEY_NONE},
+	{KEY_1, KEY_2, KEY_3, KEY_REPETE, KEY_DOWN, KEY_MUTE, KEY_M4, KEY_N2, KEY_VOLUME}};
+
+const unsigned int pianoNotes[] = {
+	NOTE_A6, //1
+	NOTE_B6, //2
+	NOTE_C6, //3
+	NOTE_D6, //4
+	NOTE_E6, //5
+	NOTE_F6, //6
+	NOTE_G6, //7
+	NOTE_GS6, //8
+	NOTE_AS7, //1
+};
+
 
 Keypad phoneKeypad = Keypad(makeKeymap(phoneKeyboard), rowPins, colsPins, rowCount, colCount);
 
@@ -44,91 +56,90 @@ Rtttl sound = Rtttl(engine);
 // Taking care of some special events.
 void keypadCheck()
 {
-    if (phoneKeypad.getKeys())
-    {
-        for (int i = 0; i < LIST_MAX; i++) // Scan the whole key list.
-        {
-            if (phoneKeypad.key[i].stateChanged) // Only find keys that have changed state.
-            {
-                byte pos = 0;
-                switch (phoneKeypad.key[i].kstate)
-                { // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
-                case PRESSED:
-                    switch (phoneKeypad.key[i].kchar)
-                    {
-                        case KEY_OPTION:
-							album = ++album % 3;
-							break;
-                        case KEY_1:
-                        case KEY_2:
-                        case KEY_3:
-                        case KEY_4:
-                        case KEY_5:
-                        case KEY_6:
-                        case KEY_7:
-                        case KEY_8:
-                            pos = phoneKeypad.key[i].kchar - KEY_1;
-							screen->toggleLed(pos, 0 );
-                            break;
-						case KEY_9:
-							screen->toggleRow(0);
-                            break;
-						case KEY_0:
-							screen->clearRow(0);
-							break;
-						case KEY_HASH:
-							screen->copyRow(1, 2);
-							screen->copyRow(0, 1);
-							screen->clearRow(0);
-							break;
-						case KEY_STAR:
-							screen->toggle();
-							break;
-						case KEY_UP:
-							screen->shiftTop();
-							break;
-						case KEY_DOWN:
-							screen->shiftBottom();
-							break;
-						case KEY_MENU:
-							screen->shiftLeft();
-							break;
-						case KEY_LIST:
-							screen->shiftRight();
-							break;
-						case KEY_DEL:
-							screen->clear();
-							break;
-                        case KEY_M1:
-                        case KEY_M2:
-                        case KEY_M3:
-                        case KEY_M4:
-                        case KEY_M5:
-                        case KEY_M6:
-                        case KEY_N1:
-                        case KEY_N2:
-                            pos = phoneKeypad.key[i].kchar - KEY_M1 + (album * 8);
-                            sound.load( new ProgmemRTTTSong( (const char *) pgm_read_word (&song[pos]) ) );
-                            sound.play();
-                            break;
-
-                    }
-                    break;
-                case HOLD:
-                    break;
-                case RELEASED:
-                    break;
-                case IDLE:
-                    break;
-                }
-            }
-        }
-    }
+	if (phoneKeypad.getKeys())
+	{
+		for (int i = 0; i < LIST_MAX; i++) // Scan the whole key list.
+		{
+			if (phoneKeypad.key[i].stateChanged) // Only find keys that have changed state.
+			{
+				byte pos = 0;
+				switch (phoneKeypad.key[i].kstate)
+				{ // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
+				case PRESSED:
+					switch (phoneKeypad.key[i].kchar)
+					{
+					case KEY_OPTION:
+						album = ++album % 3;
+						break;
+					case KEY_1:
+					case KEY_2:
+					case KEY_3:
+					case KEY_4:
+					case KEY_5:
+					case KEY_6:
+					case KEY_7:
+					case KEY_8:
+					case KEY_9:
+						pos = phoneKeypad.key[i].kchar - KEY_1;
+						screen->toggleLed(pos, 0);
+						sound.stop();
+						engine->playTone(pianoNotes[pos], 1000);
+						break;
+					case KEY_0:
+						screen->clearRow(0);
+						break;
+					case KEY_HASH:
+						screen->copyRow(1, 2);
+						screen->copyRow(0, 1);
+						screen->clearRow(0);
+						break;
+					case KEY_STAR:
+						screen->toggle();
+						break;
+					case KEY_UP:
+						screen->shiftTop();
+						break;
+					case KEY_DOWN:
+						screen->shiftBottom();
+						break;
+					case KEY_MENU:
+						screen->shiftLeft();
+						break;
+					case KEY_LIST:
+						screen->shiftRight();
+						break;
+					case KEY_DEL:
+						screen->clear();
+						break;
+					case KEY_M1:
+					case KEY_M2:
+					case KEY_M3:
+					case KEY_M4:
+					case KEY_M5:
+					case KEY_M6:
+					case KEY_N1:
+					case KEY_N2:
+						pos = phoneKeypad.key[i].kchar - KEY_M1 + (album * 8);
+						sound.load(new ProgmemRTTTSong((const char *)pgm_read_word(&song[pos])));
+						sound.play();
+						break;
+					}
+					break;
+				case HOLD:
+					break;
+				case RELEASED:
+					break;
+				case IDLE:
+					break;
+				}
+			}
+		}
+	}
 }
 
 void setup()
 {
-    Serial.begin(9600);
+	Serial.begin(9600);
 
 	screen->clear();
 	ledDisplay.setScreen(screen);
@@ -136,9 +147,9 @@ void setup()
 
 void loop()
 {
-    keypadCheck();
+	keypadCheck();
 
-    sound.update();
+	sound.update();
 
-    ledDisplay.update();
+	ledDisplay.update();
 }
