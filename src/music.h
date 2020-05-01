@@ -8,7 +8,7 @@ const char song4[] PROGMEM = "DonkeyKong:d=4,o=5,b=200:8a#,8p,8d6,16p,16f.6,16g.
 
 const char song5[] PROGMEM = "007:d=4,o=5,b=320:c,8d,8d,d,2d,c,c,c,c,8d#,8d#,2d#,d,d,d,c,8d,8d,d,2d,c,c,c,c,8d#,8d#,d#,2d#,d,c#,c,c6,1b.,g,f,1g.";
 
-const char song6[] PROGMEM = "back_to_the_future:d=16,o=5,b=200:4g.,p,4c.,p,2f#.,p,g.,p,a.,p,8g,p,8e,p,8c,p,4f#,p,g.,p,a.,p,8g.,p,8d.,p,8g.,p,8d.6,p,4d.6,p,4c#6,p,b.,p,c#.6,p,2d.6";
+const char song6[] PROGMEM = "axel-f:d=4,o=5,b=130:f#,8a.,8f#,16f#,8b,8f#,8e,f#,8c#.6,8f#,16f#,8d6,8c#6,8a,8f#,8c#6,8f#6,16f#,8e,16e,8c#,8g#,f#.";
 
 const char song7[] PROGMEM = "Tetris:d=4,o=5,b=200:e6,8b,8c6,8d6,16e6,16d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,2a,8p,d6,8f6,a6,8g6,8f6,e6,8e6,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,a";
 
@@ -21,8 +21,6 @@ const char song10[] PROGMEM = "final_Countdown:d=16,o=5,b=125:b,a,4b,4e,4p,8p,c6
 const char song11[] PROGMEM = "jackson:d=8,o=5,b=120:b,e6,g#6,a6,g#6,e6,b,a,g#,a,4b.,4p,16b,16b,e6,g#6,a6,g#6,e6,b,a,g#,a,4b.,p,16b,16b,c#6,16c#6,e6,16e6,f#.6,16e6,e6,p,16e6,16e6,c#6,c#6,e6,e6,f#6,e6,f#6,4g#.6,1p,4b,4b,b,16f#6,16f#6,16f#6,f#.6,g#6,f#6,e6,e6,e6,c#6,e6,e6,c#6,f#6,4e6,4e.6,1p,b,e6,g#6,a6,g#6,e6,b,a,g#,a,4b.,4p,16b,16b,e6,g#6,a6,g#6,e6,b,a,g#,a,4b.,p,16b,16b,c#6,16c#6,e6,16e6,f#.6,16e6,e6,p,16e6,16e6,c#6,c#6,e6,e6,f#6,e6,f#6,4g#.6,1p,4b,4b,b,16f#6,16f#6,16f#6,f#.6,g#6,f#6,e6,e6,e6,c#6,e6,e6,c#6,f#6,4e6,4e.6.";
 
 const char song12[] PROGMEM = "led_Zepelin:d=8,o=5,b=63:a4,c,e,a,b,e,c,b,c6,e,c,c6,f#,d,a4,f#,e.,16c,a4,4e,c,a4,e,g4,a4,4a4";
-
-const char song13[] PROGMEM = "let_it_be:d=8,o=5,b=100:16e6,d6,4c6,16e6,g6,a6,g.6,16g6,g6,e6,16d6,c6,16a,g,4e.6,4p,e6,16e6,f.6,e6,e6,d6,16p,16e6,16d6,d6,2c.6.";
 
 const char song14[] PROGMEM = "mission_impossible:d=16,o=5,b=100:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c6,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c6,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,p,a#4,c";
 
@@ -45,29 +43,3 @@ const char song22[] PROGMEM = "simpsons:d=8,o=5,b=160:c.6,4e6,4f#6,a6,4g.6,4e6,4
 const char song23[] PROGMEM = "polka:d=16,o=5,b=140:d,c#,d,e,f,e,f,f#,g,f#,g,a,a#,a,g,a#,a,a4,c#,e,a,g,f,e,f,e,d,c#,d,a4,b4,c#,d,c#,d,e,f,e,f,f#,g,f#,g,a,a#,a,g,a#,a,a4,c#,e,a,g,f,e,d,4p,2c#,8d,8a4,8d";
 
 const char song24[] PROGMEM = "phantom:d=8,o=5,b=120:4d6,d6,4a6,a6,4b6,g6,4a6,a6,4d6,d6,4a6,a6,a6,g6,f6,4e6,e6,4d6,d6,4a6,a6,4b6,g6,4a6,a6,4d6,d6,4a6,a6,f6,e6,c#6,4d6,d6.";
-
-const char* const song[] PROGMEM = {
-	song1,
-	song2,
-	song3,
-	song4,
-	song5,
-	song6,
-	song7,
-	song8,
-	song9,
-	song10,
-	song11,
-	song12,
-	song13,
-	song14,
-	song15,
-	song16,
-	song17,
-	song18,
-	song19,
-	song21,
-	song22,
-	song23,
-	song24
-};

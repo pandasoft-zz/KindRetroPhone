@@ -23,6 +23,7 @@ public:
   void pause();
   PlaingState getState();
   void update();
+  void onEnd (void (*callback)());
 
 private:
   void _nextnote();
@@ -30,7 +31,7 @@ private:
   IToneEngine *_engine;
   IRtttlSong * _songBuffer;
   PlaingState _state;
-
+  void (*_onEndcallback)() = NULL;
   byte _default_dur = 4;
   byte _default_oct = 5;
   int _bpm = 63;

@@ -8,6 +8,7 @@ class LEDScreen
 public:
 	LEDScreen(byte rows, byte cols = 8);
 	~LEDScreen();
+	void load(byte * bytes);
 	void setLed(bool state, byte col, byte row);
 	bool getLed(byte col, byte row);
 	void toggleLed(byte col, byte row);

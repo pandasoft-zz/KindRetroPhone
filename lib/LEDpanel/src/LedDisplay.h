@@ -16,4 +16,4 @@ private:
 	LEDScreen * _screen;
 };
 
-#endif
+#endif //LEDDISPLAY_H_

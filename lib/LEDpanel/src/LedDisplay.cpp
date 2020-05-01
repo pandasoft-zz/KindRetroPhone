@@ -1,5 +1,5 @@
-#include "LEDDisplay.h"
 #include <Arduino.h>
+#include "LEDDisplay.h"
 
 LEDDisplay::LEDDisplay(char dataPin, char clockPin, char latchPin)
 {
@@ -20,7 +20,7 @@ void LEDDisplay::update()
 {
 	digitalWrite(_latchPin, LOW);
 	char _rows = _screen->getNumRows();
-	char* _matrix = _screen->getMatrix();
+	char* _matrix = (char *) _screen->getMatrix();
 	char i;
 
 	for (i = 0; i < _rows; i++) {
